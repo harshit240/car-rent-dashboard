@@ -1,4 +1,3 @@
-
 let listings = [
   {
     id: 1,
@@ -91,35 +90,50 @@ export const getListingById = (id) => {
 };
 
 export const updateListingStatus = (id, status, adminEmail) => {
-  const listingIndex = listings.findIndex(listing => listing.id === parseInt(id));
+  const numericId = parseInt(id);
+  const listingIndex = listings.findIndex(listing => listing.id === numericId);
+  
   if (listingIndex !== -1) {
+    const oldStatus = listings[listingIndex].status;
     listings[listingIndex].status = status;
     
-    auditLogs.push({
-      id: Date.now(),
-      listingId: parseInt(id),
-      action: `Status changed to ${status}`,
-      adminEmail,
+    const auditEntry = {
+      id: Date.now() + Math.random(),
+      listingId: numericId,
+      action: `Status changed from "${oldStatus}" to "${status}"`,
+      adminEmail: adminEmail || 'admin@dashboard.com',
       timestamp: new Date()
-    });
+    };
     
+    auditLogs.unshift(auditEntry);
     return listings[listingIndex];
   }
   return null;
 };
 
 export const updateListing = (id, updates, adminEmail) => {
-  const listingIndex = listings.findIndex(listing => listing.id === parseInt(id));
+  const numericId = parseInt(id);
+  const listingIndex = listings.findIndex(listing => listing.id === numericId);
+  
   if (listingIndex !== -1) {
+    const oldListing = { ...listings[listingIndex] };
     listings[listingIndex] = { ...listings[listingIndex], ...updates };
-
-    auditLogs.push({
-      id: Date.now(),
-      listingId: parseInt(id),
-      action: `Listing updated`,
-      adminEmail,
-      timestamp: new Date()
-    });
+    
+    const changedFields = Object.keys(updates).filter(key => 
+      JSON.stringify(oldListing[key]) !== JSON.stringify(updates[key])
+    );
+    
+    if (changedFields.length > 0) {
+      const auditEntry = {
+        id: Date.now() + Math.random(),
+        listingId: numericId,
+        action: `Listing updated (${changedFields.join(', ')})`,
+        adminEmail: adminEmail || 'admin@dashboard.com',
+        timestamp: new Date()
+      };
+      
+      auditLogs.unshift(auditEntry);
+    }
     
     return listings[listingIndex];
   }
@@ -131,5 +145,5 @@ export const getUserByEmail = (email) => {
 };
 
 export const getAuditLogs = () => {
-  return auditLogs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+  return [...auditLogs].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 };
