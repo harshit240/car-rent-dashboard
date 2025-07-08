@@ -92,19 +92,19 @@ export default function LoginForm() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 px-4">
       <div className="max-w-md w-full">
-        <div className="text-center mb-8">
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-4 rounded-2xl shadow-xl inline-block mb-6">
+        <div className="text-center my-4">
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-2 rounded-2xl shadow-xl inline-block mb-3">
             <CarIcon className="h-12 w-12 text-white" />
           </div>
           <h2 className="text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
             Admin Dashboard
           </h2>
-          <p className="mt-3 text-gray-600 text-lg">
+          <p className="my-2 text-gray-600 text-lg">
             Sign in to manage car rentals
           </p>
         </div>
 
-        <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-xl p-4 mb-6">
+        <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-xl p-4 mb-4">
           <h3 className="text-sm font-semibold text-blue-800 mb-2">Demo Credentials</h3>
           <div className="text-sm text-blue-700 space-y-1">
             <p><span className="font-medium">Email:</span> admin@dashboard.com</p>
@@ -112,7 +112,7 @@ export default function LoginForm() {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100">
+        <div className="bg-white rounded-2xl shadow-2xl p-4 border border-gray-100">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <label htmlFor="email" className="flex items-center text-sm font-semibold text-gray-700">
@@ -186,7 +186,7 @@ export default function LoginForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:transform-none shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 transform disabled:opacity-50 disabled:transform-none shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
               {loading ? (
                 <div className="flex items-center justify-center space-x-2">
